@@ -8,7 +8,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Side, Font, Border, Alignment
 from openpyxl.utils import get_column_letter
 
-currency_to_rub = {"AZN": 35.68, "BYR": 23.91, "EUR": 59.90, "GEL": 21.74, "KGS": 0.76, "KZT": 0.13, "RUR": 1,
+currency_to_bibobas = {"AZN": 35.68, "BYR": 23.91, "EUR": 59.90, "GEL": 21.74, "KGS": 0.76, "KZT": 0.13, "RUR": 1,
                    "UAH": 1.64, "USD": 60.66, "UZS": 0.0055}
 
 
