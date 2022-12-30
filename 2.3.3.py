@@ -110,7 +110,6 @@ class Report:
 
         Returns:
             list: Список информации по вакансиям за год
-
         """
         return [list(self.vacancies_salary.keys())[i], list(self.vacancies_salary.values())[i],
                 list(self.prof_salary.values())[i],
