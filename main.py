@@ -8,7 +8,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Side, Font, Border, Alignment
 from openpyxl.utils import get_column_letter
 
-currency_to_another =   {"AZN": 35.68, "BYR": 23.91, "EUR": 59.90, "GEL": 21.74, "KGS": 0.76, "KZT": 0.13, "RUR": 1,
+currency_to_rub = {"AZN": 35.68, "BYR": 23.91, "EUR": 59.90, "GEL": 21.74, "KGS": 0.76, "KZT": 0.13, "RUR": 1,
                    "UAH": 1.64, "USD": 60.66, "UZS": 0.0055}
 
 
@@ -160,7 +160,7 @@ class Vacancy:
         self.salary_from = int(row['salary_from'].split('.')[0])
         self.salary_to = int(row['salary_to'].split('.')[0])
         self.salary_currency = row['salary_currency']
-        self.avarage_salary = int((self.salary_from + self.salary_to) / 2 * currency_to_another[self.salary_currency])
+        self.avarage_salary = int((self.salary_from + self.salary_to) / 2 * currency_to_rub[self.salary_currency])
         self.area_name = row['area_name']
         self.published_at = int(row['published_at'][0:4])
 
