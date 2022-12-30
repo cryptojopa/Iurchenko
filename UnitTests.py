@@ -24,7 +24,7 @@ class SalaryTests(TestCase):
 
 class DateConverterTests(TestCase):
     def test_procent_convert(self):
-        self.assertDictEqual(Report('Программист', {2017: 20000}, {2017: 50}, {2017: 50000}, {2017: 5}, {'Москва': 0.56}, {'Москва': 10000}).procent_format(), {'Москва': '56%'})
+        self.assertDictEqual(Report('Программист', {2017: 20000}, {2017: 50}, {2017: 50000}, {2017: 5}, {'Москва': 0.56}, {'Москва': 10000}).procent_format(), {'Москва': '56.0%'})
 
     def test_procent_convert_many_symbols_after_dot(self):
         self.assertDictEqual(Report('Программист', {2017: 20000}, {2017: 50}, {2017: 50000}, {2017: 5}, {'Москва': 0.56532523}, {'Москва': 10000}).procent_format(), {'Москва': '56.53%'})
