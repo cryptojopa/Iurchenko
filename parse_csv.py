@@ -12,7 +12,7 @@ def csv_distributor(file="C:/Users/Глеб/PycharmProjects/task2-2/v_year2.csv"
         title[0] = 'name'
         for data in list(reader):
             if len(title) == len(data) and '' not in data:
-                year = data[title.index('published_at;;;')][:4]
+                year = data[title.index('published_at')][:4]
                 if year not in years_csv.keys():
                     years_csv[year] = [data]
                 else:
