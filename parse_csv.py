@@ -24,14 +24,14 @@ def csv_distributor(file="C:/Users/Глеб/PycharmProjects/task2-2/v_year2.csv"
 
 def create_csv_files(title: list, years_vacancies: dict):
     """
-    Создаёт новые CSV-файлы в в папке CSVFiles
+    Создаёт новые CSV-файлы в в папке CSV
 
     Args:
         years_vacancies (dict): словарь со списками вакансий, привязанных к году
         title (list): cписок с заголовками
     """
     for year in years_vacancies:
-        with open(f'CSVFiles/{year}.csv', 'w', encoding='utf-8-sig') as new_file:
+        with open(f'CSV/{year}.csv', 'w', encoding='utf-8-sig') as new_file:
             writer = csv.writer(new_file)
             writer.writerow(title)
             for row in years_vacancies[year]:
