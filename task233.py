@@ -9,10 +9,21 @@ from matplotlib import pyplot as plt
 from openpyxl import Workbook
 from openpyxl.styles import Side, Font, Border, Alignment
 from openpyxl.utils import get_column_letter
+import cProfile
 
 
 currency_to_rub = {"AZN": 35.68, "BYR": 23.91, "EUR": 59.90, "GEL": 21.74, "KGS": 0.76, "KZT": 0.13, "RUR": 1,
                    "UAH": 1.64, "USD": 60.66, "UZS": 0.0055}
+
+def profile(func):
+    """Decorator for run function profile"""
+    def wrapper(*args, **kwargs):
+        profile_filename = func.__name__ + '.prof'
+        profiler = cProfile.Profile()
+        result = profiler.runcall(func, *args, **kwargs)
+        profiler.dump_stats(profile_filename)
+        return result
+    return wrapper
 
 
 class Report:
@@ -97,7 +108,7 @@ class Report:
             dict: Процент отношения кол-ва вакансий в городе относительно общего кол-ва вакансий
 
         >>> Report('Программист', {2017: 20000}, {2017: 50}, {2017: 50000}, {2017: 5}, {'Москва': 0.56}, {'Москва': 10000}).procent_format()
-        {'Москва': 56%}
+        {'Москва': 56.0%}
         """
         return {city: f'{round(self.cities_procent[city] * 100, 2)}%' for city in self.cities_procent}
 
@@ -110,6 +121,7 @@ class Report:
 
         Returns:
             list: Список информации по вакансиям за год
+
         """
         return [list(self.vacancies_salary.keys())[i], list(self.vacancies_salary.values())[i],
                 list(self.prof_salary.values())[i],
@@ -327,9 +339,17 @@ class Vacancy:
         self.area_name = row['area_name']
         self.published_at = int(row['published_at'][0:4])
 
-        # def parse_date_with_strptime_function(date):
-        #     result_date = datetime.datetime.strptime(date[:10], '%Y-%m-%d').date()
-        #     return '{0.day}.{0.month}.{0.year}'.format(result_date)
+        # from datetime import datetime
+        # def get_year(self, time: str) -> int:
+        #     return datetime.strptime(time, "%Y-%m-%dT%H:%M:%S%z").year
+        #
+        # def get_year(self, time: str) -> int:
+        #     return int(time.split('-')[0])
+
+        @profile
+        def parse_date_with_strptime_function(date):
+            result_date = datetime.datetime.strptime(date[:10], '%Y-%m-%d').date()
+            return '{0.day}.{0.month}.{0.year}'.format(result_date)
 
 
 class DataSet:
@@ -380,12 +400,6 @@ class DataSet:
 
         Returns:
              list: Список обработанных вакансий
-
-        >>>DataSet('v_med.csv', 'Программист').file_name
-        'v_med.csv'
-        >>>DataSet('v_med.csv', 'Программист').profession
-        'Программист'
-
         """
         csv_file_data = open(self.file_name, 'r', encoding='utf-8-sig')
         file_data_reader = csv.reader(csv_file_data)
