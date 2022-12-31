@@ -10,6 +10,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Side, Font, Border, Alignment
 from openpyxl.utils import get_column_letter
 import cProfile
+# from datetime import datetime
 
 
 currency_to_rub = {"AZN": 35.68, "BYR": 23.91, "EUR": 59.90, "GEL": 21.74, "KGS": 0.76, "KZT": 0.13, "RUR": 1,
@@ -339,13 +340,16 @@ class Vacancy:
         self.area_name = row['area_name']
         self.published_at = int(row['published_at'][0:4])
 
-        # from datetime import datetime
+        
         # def get_year(self, time: str) -> int:
         #     return datetime.strptime(time, "%Y-%m-%dT%H:%M:%S%z").year
         #
         # def get_year(self, time: str) -> int:
         #     return int(time.split('-')[0])
-
+#         def parse_date_with_strptime_function(date):
+#             result_date = datetime.datetime.strptime(date[:10], '%Y-%m-%d').date()
+#             return '{0.day}.{0.month}.{0.year}'.format(result_date)
+      
         @profile
         def parse_date_with_strptime_function(date):
             result_date = datetime.datetime.strptime(date[:10], '%Y-%m-%d').date()
